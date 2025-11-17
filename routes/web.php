@@ -20,5 +20,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+
 });
 require __DIR__ . '/settings.php';

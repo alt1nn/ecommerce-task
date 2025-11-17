@@ -1,13 +1,6 @@
 import { router } from '@inertiajs/react';
 
-interface Product {
-    id: number;
-    name: string;
-    price: number;
-    stock_quantity: number;
-}
-
-export default function Index({ products }: { products: Product[] }) {
+export default function Index({ products }: { products: any }) {
 
     const addToCart = (productId: number) => {
         router.post('/cart', {
@@ -20,7 +13,7 @@ export default function Index({ products }: { products: Product[] }) {
         <div>
             <h1>Products</h1>
 
-            {products.map((p: Product) => (
+            {products.map((p: any) => (
                 <div key={p.id}>
                     {p.name} - ${p.price} - Stock: {p.stock_quantity}
 
