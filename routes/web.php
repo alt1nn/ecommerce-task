@@ -19,9 +19,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
+
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
-
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-
+    Route::put('/cart/{product}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/{product}', [CartController::class, 'destroy'])->name('cart.destroy');
+    Route::post('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 });
 require __DIR__ . '/settings.php';
