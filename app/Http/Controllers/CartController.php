@@ -100,6 +100,6 @@ class CartController extends Controller
 
         CartItem::where('user_id', $userId)->delete();
 
-        return back()->with('message', 'Order completed successfully');
+        return redirect()->back()->with('success', 'Order completed successfully');
     }
 }

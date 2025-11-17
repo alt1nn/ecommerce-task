@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Http\Request;
 use Inertia\Middleware;
+use App\Models\CartItem;
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Inspiring;
+use Illuminate\Support\Facades\Auth;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -38,14 +40,26 @@ class HandleInertiaRequests extends Middleware
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
 
-        return [
-            ...parent::share($request),
+        return array_merge(parent::share($request), [
+
             'name' => config('app.name'),
-            'quote' => ['message' => trim($message), 'author' => trim($author)],
+
+            'quote' => [
+                'message' => trim($message),
+                'author' => trim($author),
+            ],
+
             'auth' => [
                 'user' => $request->user(),
             ],
-            'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
-        ];
+
+            'sidebarOpen' => ! $request->hasCookie('sidebar_state')
+                || $request->cookie('sidebar_state') === 'true',
+
+            // Cart count
+            'cartCount' => Auth::check()
+                ? CartItem::where('user_id', Auth::id())->sum('quantity')
+                : 0,
+        ]);
     }
 }
