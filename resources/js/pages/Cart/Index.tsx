@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { router } from '@inertiajs/react';
 import { useRef } from 'react';
 

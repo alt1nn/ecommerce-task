@@ -8,6 +8,7 @@ use App\Models\CartItem;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Jobs\LowStockNotificationJob;
 
 class CartController extends Controller
 {
@@ -91,6 +92,10 @@ class CartController extends Controller
             $item->product->update([
                 'stock_quantity' => $item->product->stock_quantity - $item->quantity
             ]);
+
+            if ($item->product->stock_quantity <= 5) {
+                dispatch(new LowStockNotificationJob($item->product));
+            }
         }
 
         CartItem::where('user_id', $userId)->delete();
