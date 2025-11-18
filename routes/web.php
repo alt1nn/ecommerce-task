@@ -7,9 +7,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 
-Route::get('/dashboard', function () {
-    return redirect('/');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', fn() => 'ok')
+    ->middleware(['auth'])
+    ->name('dashboard');
+
 Route::get('/', function () {
     return Inertia::render('Home/Index', [
         'canRegister' => Features::enabled(Features::registration()),
