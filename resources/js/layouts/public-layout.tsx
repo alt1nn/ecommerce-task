@@ -9,6 +9,17 @@ export default function PublicLayout({ children }) {
 
     const [showFlash, setShowFlash] = useState(true);
 
+    const [search, setSearch] = useState("");
+
+    const handleSearch = (e) => {
+        setSearch(e.target.value);
+
+        router.get("/products", { search: e.target.value }, {
+            preserveState: true,
+            replace: true
+        });
+    };
+
     useEffect(() => {
         if (flash?.success || flash?.error) {
             setShowFlash(true);
@@ -49,6 +60,8 @@ export default function PublicLayout({ children }) {
                         <div className="flex-1 px-6">
                             <input
                                 type="text"
+                                value={search}
+                                onChange={handleSearch}
                                 placeholder="Search products..."
                                 className="w-full border rounded px-3 py-1"
                             />
