@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 
 export default function PublicLayout({ children }) {
 
-    const { cartCount, auth, flash } = usePage().props;
+    const { cartCount, auth, flash, filters } = usePage().props;
     const user = auth?.user;
 
     const [showFlash, setShowFlash] = useState(true);
 
-    const [search, setSearch] = useState("");
+    const [search, setSearch] = useState(filters?.search || "");
 
     const handleSearch = (e) => {
         setSearch(e.target.value);
@@ -19,7 +19,6 @@ export default function PublicLayout({ children }) {
             replace: true
         });
     };
-
     useEffect(() => {
         if (flash?.success || flash?.error) {
             setShowFlash(true);
