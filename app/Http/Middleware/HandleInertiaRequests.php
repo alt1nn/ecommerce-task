@@ -60,6 +60,11 @@ class HandleInertiaRequests extends Middleware
             'cartCount' => Auth::check()
                 ? CartItem::where('user_id', Auth::id())->sum('quantity')
                 : 0,
+
+            'flash' => [
+                'success' => session('success'),
+                'error' => session('error'),
+            ],
         ]);
     }
 }

@@ -100,6 +100,6 @@ class CartController extends Controller
 
         CartItem::where('user_id', $userId)->delete();
 
-        return redirect()->back()->with('success', 'Order completed successfully');
+        return redirect()->route('home')->with('success', 'Order completed successfully');
     }
 }

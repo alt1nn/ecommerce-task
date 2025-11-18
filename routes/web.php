@@ -16,6 +16,7 @@ Route::get('/', function () {
         'products' => Product::all()
     ]);
 })->name('home');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
